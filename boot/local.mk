@@ -8,5 +8,5 @@ include $(BUILD_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 LOCAL_MODULE := startup
 LOCAL_SRC_FILES := start.S
-include $(BUILD_OBJECTS)
+include $(BUILD_SINGLE_OBJECTS)
 
