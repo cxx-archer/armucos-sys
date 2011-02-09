@@ -32,6 +32,6 @@ BUILD_SYSTEM := $(TOP)/build
 OUT := $(TOP)/target/$(TAG)
 CLEAR_VARS := $(BUILD_SYSTEM)/clear_vars.mk
 BUILD_STATIC_LIBRARY := $(BUILD_SYSTEM)/build_static_library.mk
-BUILD_OBJECTS := $(BUILD_SYSTEM)/build_objects.mk
+BUILD_SINGLE_OBJECTS := $(BUILD_SYSTEM)/build_single_objects.mk
 GOAL := $(MAKECMDGOALS)
 CLEANGOAL := clean cleanall modules_clean modules_cleanall distclean
