@@ -2,31 +2,17 @@ define remote_write
 	monitor long $arg0 = $arg1
 end
 
-define target-init
+define reload
 	target remote localhost:2331
 	monitor speed 30
 	monitor endian little
 	monitor reset
 	
-	monitor reg cpsr=0xd3
 	monitor speed auto
 	
-	remote_write 0x48000000 0x22011110 
-	remote_write 0x48000004 0x00000700 
-	remote_write 0x48000008 0x00000700 
-	remote_write 0x4800000c 0x00000700 
-	remote_write 0x48000010 0x00000700 
-	remote_write 0x48000014 0x00000700 
-	remote_write 0x48000018 0x00000700
-	remote_write 0x4800001c 0x00018005
-	remote_write 0x48000020 0x00018005
-	remote_write 0x48000024 0x008c04f4
-	remote_write 0x48000028 0x000000b1
-	remote_write 0x4800002c 0x00000030
-	remote_write 0x48000030 0x00000030
-	load armboot.elf
-	symbol-file armboot.elf
-	monitor reg pc = 0x30000000
+	load target/test/armucos.elf
+	symbol-file target/test/armucos.elf
+	monitor reg pc = 0x00000000
 end
 
 define ohcidump
@@ -61,7 +47,7 @@ end
 
 define skyeye_init
 	target remote localhost:12345
-	load armboot.elf
+	load target/test/armboot.elf
 end
 
 define cpsr
@@ -208,7 +194,6 @@ define g
 	goto $arg0
 end
 
-target-init
+reload
 set print pretty
 set print union
-b C_Entry
