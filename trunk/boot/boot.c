@@ -2,25 +2,17 @@
 #include "board_regs.h"
 #include "board_config.h"
 
-static bool __BOOTSTONE_DATA debug_mode = false;
+extern void _start(void);
 
-static void __BOOTSTONE copy_code(void)
+void C_Entry(void) 
 {
-    
-}
+	uint32_t size = 16;
+	uint32_t *psrc = (uint32_t*)_start;
+	uint32_t *pdst = (uint32_t*)0;
 
-static void __BOOTSTONE base_init(void)
-{
+	/* copy interrupt vector to 0x0 */
+	while(size--)
+		*pdst++ = *psrc++;
 
-}
-
-void __BOOTSTONE C_Entry(void) 
-{
-    base_init();
-    if(!debug_mode)
-	copy_code();
-    
-    asm(
-	"ldr pc, =gmain;"
-	);
+    os_main();
 }

@@ -3,7 +3,6 @@ ifeq ($(V),1)
 	Q = 
 endif
 
-#CROSS_COMPILE 	= arm-elf-
 CROSS_COMPILE 		= $(Q)arm-elf-
 MAKE			= make
 CC 			= $(CROSS_COMPILE)gcc
