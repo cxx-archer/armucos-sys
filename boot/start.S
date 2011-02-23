@@ -1,7 +1,7 @@
 #include "board_regs.h"
 #include "board_config.h"
 
-.section .bootstone.text,"ax"
+.section .text,"ax"
 
 .global _start
 .extern C_Entry
@@ -21,14 +21,23 @@
 .endm
 
 _start:
-	b 	ResetHandler
-	b 	UndefHandler
+	ldr pc, _ResetHandler
+	ldr pc,	_UndefHandler
 	b .		    
 	b .		    
 	b .		    
 	b .		   
-	b 	IRQHandler
+	ldr pc, _IRQHandler
 	b .		    
+
+_ResetHandler:
+	.word ResetHandler
+
+_UndefHandler:
+	.word UndefHandler
+
+_IRQHandler:
+	.word IRQHandler
 
 UndefHandler:
 	mov r0,lr

@@ -2,8 +2,10 @@ include config.mk
 include definitions.mk
 
 ELF := armucos.elf
+BIN := armucos.bin
 ASM := armucos.asm
 SYM := armucos.sym
+TFTPBOOT := /tftpboot
 .PHONY: default all modules clean cleanall modules_clean modules_cleanall distclean
 
 all : $(OUT)/$(ELF)
@@ -28,6 +30,10 @@ $(OUT)/$(ELF): $(ALL_OBJECTS) $(ALL_STATIC_LIBS) $(ARM_LIBGCC) $(ARM_LIBC)
 	$(OBJDUMP) -t $@ > $(OUT)/$(SYM)
 	@echo "Generate Assembly file $(OUT)/$(ASM)..."
 	$(OBJDUMP) -S $@ > $(OUT)/$(ASM)
+	@echo "Generate Binary image $(OUT)/$(BIN)..."
+	$(OBJCOPY) -O binary $@ $(OUT)/$(BIN)
+	@echo "Copy to tftpboot directory..."
+	$(CP) $(OUT)/$(BIN) $(TFTPBOOT) -f
 
 modules : $(ALL_STATIC_LIBS)
 

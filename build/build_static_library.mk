@@ -110,7 +110,7 @@ $(LOCAL_BUILT_MODULE) : PRIVATE_ALLOBJS := $(all_objects)
 $(LOCAL_BUILT_MODULE) : $(all_objects)
 	@echo "Build Module $@..."
 	@mkdir -p $(dir $@)
-	$(AR) -rc $@ $(PRIVATE_ALLOBJS)
+	$(AR) rcs $@ $(PRIVATE_ALLOBJS)
 
 $(LOCAL_MODULE).clean: PRIVATE_CLEAN := $(s_objects) \
 					$(c_objects) \
